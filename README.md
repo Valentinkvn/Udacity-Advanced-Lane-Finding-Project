@@ -25,7 +25,9 @@ To correct those problems I used two functions, 'cameraCalibration()' and 'undis
 The first one takes a colection of camera pictures of a chessboard table and finds the corners of each of the pictures (converted previously to grey scale), using the function 'cv2.findChessboardCorners()' - which will be 9x6. After that, the function 'cv2.calibrateCamera()' is used to find the mtx and dist matrixes that contain the camera parameters.
 Those parameters are then saved to the "camera_cal/wide_dist_pickle.p" file.
 
-![png](readme_images/chessboard_corners.png)
+<p align="center">
+  <img width="460" height="300" src="readme_images/chessboard_corners.png">
+</p>
 
 #### Undistort the image
 The second function use the parameters saved in the "camera_cal/wide_dist_pickle.p" file and runs the cv2.undistort() function.
@@ -48,8 +50,11 @@ The thresholds and parameters that I used for the gradient and color filtering a
     - for the L channel, I set the threshold at 180 -> 255
     - for the R channel, I set the threshold at 150 -> 255
     - all of those filterings are then combined in one big filter
-    
-![png](readme_images/original_warped_image.png)
+ 
+<p align="center">
+  <img width="460" height="300" src="readme_images/original_warped_image.png">
+</p>
+
 ![png](readme_images/thresholding.png)
 
 ## Perspective Transformation
@@ -57,8 +62,13 @@ The thresholds and parameters that I used for the gradient and color filtering a
 The perspective transform is made using the function 'perspectiveTransform'.
 We need to have a source and a destination for the transform so I chose manually 4 points for each source and destination. Here it is an example of a perspective transform with a polygon drawn usign the source points.
 
-![png](readme_images/perspective_source_poly.png)
-![png](readme_images/perspective_dest_poly.png)
+<p align="center">
+  <img width="460" height="300" src="readme_images/perspective_source_poly.png">
+</p>
+<p align="center">
+  <img width="460" height="300" src="readme_images/perspective_dest_poly.png">
+</p>
+
 ![png](readme_images/perspective_transform.png)
 
 From the perspective transform function I also return the MInv matrix which will be used for the perspective invere trasform which will bring our perspective to the original one.
@@ -69,9 +79,17 @@ From the perspective transform function I also return the MInv matrix which will
 To identify the lane-line pixels I used two functions, 'find_lane_pixels()' and 'fit_polynomial()'. 
 The first one is used to find the regions in the image that contain the lane and to mark them (the program saves point coordinates for each window). The second one takes the regions that the first one have recently found and compute a second order polynomial that fits over those regions/points. To do this, the function 'numpy.polyfit()' is used and it takes 3 arguments, the y coordinates of points, the x coordinates and the order of the output polynomial. That function will generate an aproximate extrapolation of those points.
 
-![png](readme_images/sliding_window.png)
-![png](readme_images/polynomial_fit.png)
-![png](readme_images/area_between_poly.png)
+
+<p align="center">
+  <img width="460" height="300" src="readme_images/sliding_window.png">
+</p>
+<p align="center">
+  <img width="460" height="300" src="readme_images/polynomial_fit.png">
+</p>
+<p align="center">
+  <img width="460" height="300" src="readme_images/area_between_poly.png">
+</p>
+
 
 ## Calculation of the radius of curvature
 
@@ -93,6 +111,7 @@ Here you can see some of the final results provided by the lane detection algori
 
 For the video test I used the moviepy.editor library to manage the videostream and I implemented a mechanism that verify the lane result and checks if it is far from the last detection. If this detection is catastrophic, then the current results corrects itself with the last good result provided. Using this method it can be sure that we have a smoother detection of lanes.
 For this implementation I used the class 'Line()' provided in the previous files with two objects, 'leftLine()' and 'rightLine()' for each of the lines. The check is made in 'fit_polynomial' function.
+
 
 ![Output sample](readme_images/gif1.gif)
 ![Output sample](readme_images/gif2.gif)
