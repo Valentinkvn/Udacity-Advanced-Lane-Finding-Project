@@ -1,16 +1,4 @@
 ## Advanced Lane Finding
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
-
-
-In this project, your goal is to write a software pipeline to identify the lane boundaries in a video, but the main output or product we want you to create is a detailed writeup of the project.  Check out the [writeup template](https://github.com/udacity/CarND-Advanced-Lane-Lines/blob/master/writeup_template.md) for this project and use it as a starting point for creating your own writeup.  
-
-Creating a great writeup:
----
-A great writeup should include the rubric points as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
-
-All that said, please be concise!  We're not looking for you to write a book here, just a brief description of how you passed each rubric point, and references to the relevant code :). 
-
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup.
 
 The Project
 ---
@@ -26,14 +14,42 @@ The goals / steps of this project are the following:
 * Warp the detected lane boundaries back onto the original image.
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
-The images for camera calibration are stored in the folder called `camera_cal`.  The images in `test_images` are for testing your pipeline on single frames.  If you want to extract more test images from the videos, you can simply use an image writing method like `cv2.imwrite()`, i.e., you can read the video in frame by frame as usual, and for frames you want to save for later you can write to an image file.  
 
-To help the reviewer examine your work, please save examples of the output from each stage of your pipeline in the folder called `output_images`, and include a description in your writeup for the project of what each image shows.    The video called `project_video.mp4` is the video your pipeline should work well on.  
 
-The `challenge_video.mp4` video is an extra (and optional) challenge for you if you want to test your pipeline under somewhat trickier conditions.  The `harder_challenge.mp4` video is another optional challenge and is brutal!
+## Camera calibration
 
-If you're feeling ambitious (again, totally optional though), don't stop there!  We encourage you to go out and take video of your own, calibrate your camera and show us how you would implement this project from scratch!
+One of the problems that appear when we deal with the camera is the camera distorsion that appears because of the fact that cameras use curved lenses to form an image, and light rays often bend a little too much or too little at the edges of these lenses. 
+To correct those problems I used two functions, cameraCalibration() and undistortImage().
 
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
+#### Find chessboard corners
+The first one takes a colection of camera pictures of a chessboard table and finds the corners of each of the pictures (converted previously to grey scale), using the function cv2.findChessboardCorners() - which will be 9x6. After that, the function cv2.calibrateCamera() is used to find the mtx and dist matrixes that contain the camera parameters.
+Those parameters are then saved to the "camera_cal/wide_dist_pickle.p" file.
+![png](readme_images/chessboard_corners.png)
+
+#### Undistort the image
+The second function use the parameters saved in the "camera_cal/wide_dist_pickle.p" file and runs the cv2.undistort() function.
+The image retured by this image is an undistorted image.
+![png](readme_images/undistort.png)
+
+
+
+## Image thresholding
+
+For the image thresholding part I used two different types of filtering including gradient based filtering and color based filtering. 
+For the gradient filtering I used three thresholds, two for sobel threshold (oriented on the 'x' si 'y' axes) and one for gradient magnitude. In code, I wrote the functions abs_sobel_threshold() and mag_threshold() for those operations.
+After the gradient thresholding, I wrote a color filtering function that takes the image and applies three color filters on it, one for the S and L channels of the HLS color space and one for the R channel in the RGB color space (this is used for a better yellow filtering).
+The thresholds and parameters that I used for the gradient and color filtering are as it follows:
+- sobel threshold for the x and y axes is set at 20 for the low threshold and 100 for the high one;
+- gradient magnitude threshold is set at 30 for the low threshold and 100 for the high one;
+- the color thresholds are as it follows:
+    - for the S channel, I set the threshold at 100 -> 255
+    - for the L channel, I set the threshold at 180 -> 255
+    - for the R channel, I set the threshold at 150 -> 255
+    - all of those filterings are then combined in one big filter
+![png](readme_images/original_warped_image.png)
+![png](readme_images/thresholding.png)
+
+
+
+
 
