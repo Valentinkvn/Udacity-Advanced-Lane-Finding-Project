@@ -50,18 +50,29 @@ The thresholds and parameters that I used for the gradient and color filtering a
     - for the L channel, I set the threshold at 180 -> 255
     - for the R channel, I set the threshold at 150 -> 255
     - all of those filterings are then combined in one big filter
-    
-![png](readme_images/original_warped_image.png)
-![png](readme_images/thresholding.png)
+ 
+<p align="center">
+  <img width="460" height="300" src="readme_images/original_warped_image.png">
+</p>
+
+<p align="center">
+  <img width="460" height="300" src="readme_images/thresholding.png">
+</p>
 
 ## Perspective Transformation
 
 The perspective transform is made using the function 'perspectiveTransform'.
 We need to have a source and a destination for the transform so I chose manually 4 points for each source and destination. Here it is an example of a perspective transform with a polygon drawn usign the source points.
 
-![png](readme_images/perspective_source_poly.png)
-![png](readme_images/perspective_dest_poly.png)
-![png](readme_images/perspective_transform.png)
+<p align="center">
+  <img width="460" height="300" src="readme_images/perspective_source_poly.png">
+</p>
+<p align="center">
+  <img width="460" height="300" src="readme_images/perspective_dest_poly.png">
+</p>
+<p align="center">
+  <img width="460" height="300" src="readme_images/perspective_transform.png">
+</p>
 
 From the perspective transform function I also return the MInv matrix which will be used for the perspective invere trasform which will bring our perspective to the original one.
 'warped, Minv = perspectiveTransform(image)'
