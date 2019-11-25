@@ -25,7 +25,9 @@ To correct those problems I used two functions, 'cameraCalibration()' and 'undis
 The first one takes a colection of camera pictures of a chessboard table and finds the corners of each of the pictures (converted previously to grey scale), using the function 'cv2.findChessboardCorners()' - which will be 9x6. After that, the function 'cv2.calibrateCamera()' is used to find the mtx and dist matrixes that contain the camera parameters.
 Those parameters are then saved to the "camera_cal/wide_dist_pickle.p" file.
 
-![png](readme_images/chessboard_corners.png)
+<p align="center">
+  <img width="460" height="300" src="readme_images/chessboard_corners.png">
+</p>
 
 #### Undistort the image
 The second function use the parameters saved in the "camera_cal/wide_dist_pickle.p" file and runs the cv2.undistort() function.
