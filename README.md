@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Advanced Lane Finding
 
 The Project
@@ -53,3 +54,7 @@ The thresholds and parameters that I used for the gradient and color filtering a
 
 
 
+=======
+# Self-driving-car---Projects
+Udacity repository for all the projects
+>>>>>>> cf373546a54a5a65d578d4704b5b03fa0bc6167a
