@@ -94,12 +94,12 @@ The first one is used to find the regions in the image that contain the lane and
 ## Calculation of the radius of curvature
 
 To determine the radius of curvature in meters I used the polynomial that I've computed already and using the radius of curvature formula I found the result. The result of that formula was based on pixels dimension so I had to change that to meters. To emphasize that I used two metric conversion, one for the x axis and one for y axes, and those conversions are as it follows:
-    - 'ym_per_pix = 30/720'  -> which means that we have 30 meters in 720 pixels on y axis
-    - 'xm_per_pix = 3.7/700' -> which means that we have 3.7 meters in 700 pixels on x axis
+- 'ym_per_pix = 30/720'  -> which means that we have 30 meters in 720 pixels on y axis
+- 'xm_per_pix = 3.7/700' -> which means that we have 3.7 meters in 700 pixels on x axis
 Also, the distance to the center of the lane is computed using the distance to the right and left polynomials and then compute the conversion to meters.
-    - left_pos = abs(0 - polynomial_of_left(bottom_y))
-    - right_pos = abs(x_dimension_of_image - polynomial_of_right(bottom_y))
-    - position = (left_pos - right_pos) * xm_per_pix
+- left_pos = abs(0 - polynomial_of_left(bottom_y))
+- right_pos = abs(x_dimension_of_image - polynomial_of_right(bottom_y))
+- position = (left_pos - right_pos) * xm_per_pix
 
 ## Final Results
 
